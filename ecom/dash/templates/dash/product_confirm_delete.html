@@ -1,0 +1,10 @@
+{% extends 'dash/main.html' %}
+{% block content %}
+   <h1>Delete {{product.name}}</h1>
+   <form method="POST" action="">
+       {% csrf_token %}
+       <input type="submit" value="Yes, delete" class="btn btn-primary">
+       <input type="submit" value="Cancel" class="btn btn-default"
+          onclick="window.location.href='{% url 'dash:products' %}';return false;">
+   </form>
+{% endblock %}

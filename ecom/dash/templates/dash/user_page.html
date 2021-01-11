@@ -1,0 +1,91 @@
+{% extends 'dash/main.html' %}
+
+{% block content %}
+<style>
+  #myID{
+  outline: none;
+  text-decoration: none;
+  display: inline-block;
+  width: 19.5%;
+  margin-right: 0.625%;
+  text-align: center;
+  line-height: 3;
+  color: black;
+}
+#myID:link, #myID:visited, #myID:focus {
+  background: yellow;
+}
+
+#myID:hover {
+  background: orange;
+}
+
+#myID:active {
+  background: red;
+  color: white;
+
+</style>
+<a id ="myID" href="{% url 'dash:shopping' %}"> &#8592; Start Shopping</a>
+<div class="row">
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Orders</h5>
+        <p class="card-text">{{total_orders}}</p>
+        <a href="{% url 'dash:myorders' %}" class="btn btn-primary">View</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Delivered</h5>
+        <p class="card-text">{{delivered}}</p>
+        <a href="#" class="btn btn-primary">View</a>
+      </div>
+    </div>
+  </div>
+    <div class="col-sm-4">
+      <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Pending</h5>
+        <p class="card-text">{{pending}}</p>
+        <a href="#" class="btn btn-primary">View</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+<br>
+
+<div class="row">
+  <div class="col-sm-12">
+  <div class="card">
+    <div class="card-body">
+<table class="table table-bordered table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Product</th>
+      <th scope="col">Ordered Date</th>
+      <th scope="col">Status</th>
+      <th scope="col">Choose</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for order in orders %}
+        <tr>
+          <th scope="row">{{order.id}}</th>
+          <td>{{order.product}}</td>
+          <td>{{order.ordered_date}}</td>
+          <td>{{order.status}}</td>
+          <td><a href="{% url 'dash:order_detail' order.id %}" class="btn btn-primary">View</a></td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+    </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

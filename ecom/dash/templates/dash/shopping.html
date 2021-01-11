@@ -1,0 +1,20 @@
+{% extends 'dash/main.html' %}
+{% block content %}
+<style>
+      #productDIV{
+        background-color: pink;
+        margin-left: 300px
+    }
+</style>
+    {% for product in products %}
+         <div class="card" id="productDIV" style="width: 18rem;">
+             <img class="card-img-top" src="{{ product.product_pic.url }}" alt="Card image cap">
+             <div class="card-body">
+             <h5 class="card-title">{{product.name}}</h5>
+                 <p class="card-text">{{product.description}}</p>
+             <a href="{% url 'dash:order' product.id %}" class="btn btn-primary">Order</a>
+             </div>
+          </div>
+         <br>
+    {% endfor %}
+{% endblock %}

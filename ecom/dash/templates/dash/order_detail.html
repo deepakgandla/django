@@ -1,0 +1,24 @@
+{% extends 'dash/main.html' %}
+
+{% block content %}
+        {% if request.user.username == customer %}
+        <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{order.product.product_pic.url}}" alt="Card image cap">
+        <div class="card-body">
+        <h5 class="card-title">{{order.product}}</h5>
+        <p class="card-text">{{order.product.description}}</p>
+        </div>
+       <ul class="list-group list-group-flush">
+       <li class="list-group-item">ORDER ID:#{{order.id}}</li>
+       <li class="list-group-item">{{order.ordered_date}}</li>
+       <li class="list-group-item">{{order.status}}</li>
+       </ul>
+       <div class="card-body">
+       <a href="#" class="card-link">Card link</a>
+       <a href="#" class="card-link">Another link</a>
+      </div>
+      </div>
+      {% else %}
+      <h2>NO</h2>
+      {% endif %}
+{% endblock %}

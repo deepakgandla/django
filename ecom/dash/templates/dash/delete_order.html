@@ -1,0 +1,10 @@
+{% extends 'dash/main.html' %}\
+
+{% block content %}
+<h1>Are you sure you want to delete {{order}}</h1>
+<form method="POST" action="">
+    {% csrf_token %}
+    <a href="{% url 'dash:main' %}" class="btn btn-warning">Cancel</a>
+    <input  type="submit" class="btn btn-danger">
+</form>
+{% endblock %}

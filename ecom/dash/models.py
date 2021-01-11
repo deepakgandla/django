@@ -3,14 +3,20 @@ from django.contrib.auth.models import User
 from django.conf import settings
 # Create your models here.
 
+
 class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     name=models.CharField(max_length=100,null=True)
     email=models.CharField(max_length=40,null=True)
     phone=models.CharField(max_length=10,null=True)
-    owner=models.OneToOneField(User,on_delete=models.CASCADE,null=True)
+    profile_pic=models.ImageField(default='logo.png', null=True, blank=True)
+
+
+
 
     def __str__(self):
-        return self.name
+        return str(self.user)
+
 class Tag(models.Model):
     name=models.CharField(max_length=20,null=True)
 
@@ -26,6 +32,7 @@ class Product(models.Model):
     name=models.CharField(max_length=90,null=True)
     category=models.CharField(max_length=100,null=True,choices=CATEGORY)
     description=models.CharField(max_length=10000,null=True,blank=True)
+    product_pic=models.ImageField(default='bottle.jpg', null=True, blank=True)
     tags=models.ManyToManyField(Tag)
 
     def __str__(self):
@@ -37,11 +44,10 @@ class Order(models.Model):
         ('dispatched','dispatched'),
         ('delivered','delivered')
     ]
-
     customer=models.ForeignKey(Customer,null=True,on_delete=models.CASCADE)
     product=models.ForeignKey(Product,on_delete=models.CASCADE)
     ordered_date=models.DateTimeField(auto_now_add=True)
     status=models.CharField(max_length=100,null=True,choices=STATUS)
 
     def __str__(self):
-        return self.product.name,self.customer.name
+        return self.product.name

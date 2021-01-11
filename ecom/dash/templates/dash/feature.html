@@ -1,7 +1,120 @@
+
 {% extends 'dash/main.html' %}
+{% load static %}
 
 {%  block content %}
-
+<style>
+    .python{
+    background-color: #555;
+    margin-left: 50px;
+    margin-right: 100px;
+    }
+</style>
 <h1>Features</h1>
+
+<P>Below image is an output for Python program.The program takes single form of normal jpg image and
+converts that image into the following image.The below image contains nine different styles of
+same image.</P>
+<p>The execution time taken is 30 mins.Because the program must go through the each and every pixel of image.
+    This must be repeated 9 times.For each pixel its RGB values are processed and changed based on the intensity and
+    and channel value.
+</p>
+
+<div class="python"><pre>import PIL
+from PIL import Image
+from PIL import ImageEnhance
+from PIL import ImageDraw
+from PIL import ImageFont
+from IPython.display import display
+
+
+# read image and convert to RGB
+
+# buid a list of 9 images which have different brightnesses
+#enhancer=ImageEnhance.Brightness(image)
+images=[]
+print('hai')
+
+def changeRed(m,image):
+
+    for x in range(image.width):
+        for y in range(image.height):
+            red,green,blue=image.getpixel((x,y))
+            newRed=int(red*m)
+            image.putpixel((x,y),(newRed,green,blue))
+image=Image.open("readonly/msi_recruitment.gif")
+image=image.convert("RGB")
+sheet=PIL.Image.new(image.mode,(3*image.width,(3*image.height)+90)).convert("RGBA")
+
+changeRed(0.1,image)
+sheet.paste(image,(0,0))
+image=Image.open("readonly/msi_recruitment.gif")
+image=image.convert("RGB")
+changeRed(0.5,image)
+sheet.paste(image,(image.width,0))
+image=Image.open("readonly/msi_recruitment.gif")
+image=image.convert("RGB")
+changeRed(0.9,image)
+sheet.paste(image,(image.width*2,0))
+def changeGreen(m,image):
+
+    for x in range(image.width):
+        for y in range(image.height):
+            red,green,blue=image.getpixel((x,y))
+            newGreen=int(green*m)
+            image.putpixel((x,y),(red,newGreen,blue))
+
+image=Image.open("readonly/msi_recruitment.gif")
+image=image.convert("RGB")
+changeGreen(0.1,image)
+sheet.paste(image,(0,image.height+30))
+image=Image.open("readonly/msi_recruitment.gif")
+image=image.convert("RGB")
+changeGreen(0.5,image)
+sheet.paste(image,(image.width,image.height+30))
+image=Image.open("readonly/msi_recruitment.gif")
+image=image.convert("RGB")
+changeGreen(0.9,image)
+sheet.paste(image,(image.width*2,image.height+30))
+def changeBlue(m,image):
+     for x in range(image.width):
+        for y in range(image.height):
+            red,green,blue=image.getpixel((x,y))
+            newBlue=int(blue*m)
+            image.putpixel((x,y),(red,green,newBlue))
+
+image=Image.open("readonly/msi_recruitment.gif")
+image=image.convert("RGB")
+changeBlue(0.1,image)
+sheet.paste(image,(0,(image.height*2)+60))
+image=Image.open("readonly/msi_recruitment.gif")
+image=image.convert("RGB")
+changeBlue(0.5,image)
+sheet.paste(image,(image.width,(image.height*2)+60))
+image=Image.open("readonly/msi_recruitment.gif")
+image=image.convert("RGB")
+changeBlue(0.9,image)
+sheet.paste(image,(image.width*2,(image.height*2)+60))
+
+txt = Image.new('RGBA', sheet.size, (255,255,255,0))
+fnt=ImageFont.truetype("readonly/fanwood-webfont.ttf",25)
+d=ImageDraw.Draw(txt)
+d.text((0,image.height+5), "channel 0 intensity 0.1", font=fnt, fill=(255,255,255,255))
+d.text((image.width,image.height+5), "channel 0 intensity 0.5", font=fnt, fill=(255,255,255,255))
+d.text((image.width*2,image.height+5), "channel 0 intensity 0.9", font=fnt, fill=(255,255,255,255))
+d.text((0,(image.height*2)+35), "channel 1 intensity 0.1", font=fnt, fill=(255,255,255,255))
+d.text((image.width,(image.height*2)+35), "channel 1 intensity 0.5", font=fnt, fill=(255,255,255,255))
+d.text((image.width*2,(image.height*2)+35), "channel 1 intensity 0.9", font=fnt, fill=(255,255,255,255))
+d.text((0,(image.height*3)+65), "channel 2 intensity 0.1", font=fnt, fill=(255,255,255,255))
+d.text((image.width,(image.height*3)+65), "channel 2 intensity 0.5", font=fnt, fill=(255,255,255,255))
+d.text((image.width*2,(image.height*3)+65), "channel 2 intensity 0.9", font=fnt, fill=(255,255,255,255))
+out = Image.alpha_composite(sheet, txt)
+
+
+display(out)
+# create a contact sheet from different brightnesses
+</pre></div>
+
+<img src="{% static 'images/Assgn.jpg' %}">
 
 {% endblock %}

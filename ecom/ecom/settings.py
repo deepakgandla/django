@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import psycopg2
 from pathlib import Path
 import os
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
 
     'dash.apps.DashConfig',
 ]
@@ -78,8 +79,12 @@ WSGI_APPLICATION = 'ecom.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'DEMO_TEST',
+        'USER': 'postgres',
+        'PASSWORD': 'deepak#1818',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 
@@ -128,3 +133,14 @@ MEDIA_URL='/images/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static')
 ]
+
+
+MEDIA_ROOT=os.path.join(BASE_DIR, 'static/images')
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'deepakgandla1@gmail.com'
+EMAIL_HOST_PASSWORD = 'deepak18'

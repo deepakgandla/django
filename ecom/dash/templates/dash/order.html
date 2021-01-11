@@ -1,0 +1,9 @@
+{% extends 'dash/main.html' %}
+
+{% block content %}
+     <h1>Order {{product.name}} Without Paying</h1>
+     <form action="" method="POST">
+         {% csrf_token %}
+         <input type="submit" value="place order">
+     </form>
+{% endblock %}

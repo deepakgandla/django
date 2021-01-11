@@ -4,24 +4,96 @@
 
 <h1 id="homeh1">Home</h1>
 <div class="row">
-  <div class="col-sm-6">
+  <div class="col-sm-4">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">Orders</h5>
-        <p class="card-text">2</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <p class="card-text">{{total_orders}}</p>
+        <a href="#" class="btn btn-primary">View</a>
       </div>
     </div>
   </div>
-  <div class="col-sm-6">
+  <div class="col-sm-4">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">My Cart</h5>
-        <p class="card-text">4</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <h5 class="card-title">Delivered</h5>
+        <p class="card-text">{{delivered}}</p>
+        <a href="#" class="btn btn-primary">View</a>
       </div>
     </div>
   </div>
+    <div class="col-sm-4">
+      <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Pending</h5>
+        <p class="card-text">{{pending}}</p>
+        <a href="#" class="btn btn-primary">View</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-5">
+	<div class="col-md">
+		<div class="card card-body">
+            <h2>Customers</h2>
+           <table class="table">
+              <thead class="thead-dark">
+                 <tr>
+                     <th scope="col">#</th>
+                     <th scope="col">Name</th>
+                     <th scope="col">Phone</th>
+                     <th scope="col">Email</th>
+                 </tr>
+              </thead>
+               <tbody>
+               {% for customer in customers %}
+              <tr>
+             <th scope="row">{{customer.id}}</th>
+                  <td><a href="{% url 'dash:customer' customer.id %}">{{customer.name}}</a></td>
+                  <td>{{customer.phone}}</td>
+                 <td>{{customer.email}}</td>
+                 </tr>
+                {% endfor %}
+                </tbody>
+             </table>
+        </div>
+    </div>
+    </div>
+    <div class="col-sm-7">
+        <div class="col-md">
+            <div class="card card-body">
+                <h2>Orders</h2>
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Product</th>
+                        <th>Date Ordered</th>
+                        <th>Status</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for order in orders%}
+                    <tr>
+                        <td>{{order.id}}</td>
+                        <td>{{order.product.name}}</td>
+                        <td>{{order.ordered_date}}</td>
+                        <td>{{order.status}}</td>
+                        <td><a href="{% url 'dash:update_order' order.id%}" class="btn btn-primary">Update</a></td>
+                        <td><a href="{% url 'dash:delete_order' order.id%}" class="btn btn-danger">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 {% endblock %}

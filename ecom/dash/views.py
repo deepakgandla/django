@@ -19,6 +19,7 @@ from .decorators import unauthenticated_user, allowed_users, admin_only
 from django.contrib.auth.models import Group
 
 @login_required(login_url="login")
+@admin_only
 def products(request):
     products=Product.objects.all()
 
@@ -57,6 +58,7 @@ class ProductDetailView(DetailView):
         context={'product':product}
 
         return render(request, 'dash/product.html',context)
+
 
 class ProductDeleteView(DeleteView):
     model = Product
